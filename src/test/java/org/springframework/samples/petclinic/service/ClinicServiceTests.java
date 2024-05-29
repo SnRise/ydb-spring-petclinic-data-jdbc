@@ -15,15 +15,18 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Collection;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.samples.petclinic.owner.*;
+import org.springframework.samples.petclinic.owner.Owner;
+import org.springframework.samples.petclinic.owner.OwnerRepository;
+import org.springframework.samples.petclinic.owner.Pet;
+import org.springframework.samples.petclinic.owner.PetRepository;
+import org.springframework.samples.petclinic.owner.PetType;
 import org.springframework.samples.petclinic.vet.SpecialtyRef;
 import org.springframework.samples.petclinic.vet.Vet;
 import org.springframework.samples.petclinic.vet.VetRepository;
@@ -31,6 +34,8 @@ import org.springframework.samples.petclinic.visit.Visit;
 import org.springframework.samples.petclinic.visit.VisitRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Integration test of the Service and the Repository layer.
@@ -95,12 +100,13 @@ public class ClinicServiceTests {
 		int found = owners.size();
 
 		Owner owner = new Owner();
+        owner.setId(11);
 		owner.setFirstName("Sam");
 		owner.setLastName("Schultz");
 		owner.setAddress("4, Evans Street");
 		owner.setCity("Wollongong");
 		owner.setTelephone("4444444444");
-		this.owners.save(owner);
+		this.owners.insert(owner);
 		assertThat(owner.getId().longValue()).isNotEqualTo(0);
 
 		owners = this.owners.findByLastName("Schultz");
@@ -142,10 +148,11 @@ public class ClinicServiceTests {
 		int found = this.pets.findByOwnerId(6).size();
 
 		Pet pet = new Pet();
+        pet.setId(14);
 		pet.setName("bowser");
 		pet.setType(2);
 		pet.setOwner(owner6);
-		this.pets.save(pet);
+		this.pets.insert(pet);
 		// checks that id has been generated
 		assertThat(pet.getId()).isNotNull();
 
@@ -182,9 +189,10 @@ public class ClinicServiceTests {
 		int found = this.visits.findByPetId(pet7.getId()).size();
 
 		Visit visit = new Visit();
+        visit.setId(5L);
 		visit.setDescription("test");
 		visit.setPetId(pet7.getId());
-		this.visits.save(visit);
+		this.visits.insert(visit);
 
 		assertThat(this.visits.findByPetId(pet7.getId()).size()).isEqualTo(found + 1);
 		assertThat(visit.getId()).isNotNull();

@@ -16,13 +16,13 @@
 package org.springframework.samples.petclinic.vet;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import tech.ydb.data.repository.YdbRepository;
 
 /**
  * @author Maciej Walkowiak
  */
-public interface SpecialtyRepository extends Repository<Specialty, Long> {
+public interface SpecialtyRepository extends YdbRepository<Specialty, Long> {
 
 	@Transactional(readOnly = true)
 	@Cacheable("specialty")

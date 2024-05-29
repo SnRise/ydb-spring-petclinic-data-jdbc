@@ -15,13 +15,13 @@
  */
 package org.springframework.samples.petclinic.vet;
 
-import java.util.Collection;
 import java.util.List;
+
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.jdbc.repository.query.Query;
-import org.springframework.data.repository.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import tech.ydb.data.repository.YdbRepository;
 
 /**
  * Repository class for <code>Vet</code> domain objects All method names are compliant with Spring Data naming
@@ -33,7 +33,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-public interface VetRepository extends Repository<Vet, Integer> {
+public interface VetRepository extends YdbRepository<Vet, Integer> {
 
 	/**
 	 * Retrieve all <code>Vet</code>s from the data store.

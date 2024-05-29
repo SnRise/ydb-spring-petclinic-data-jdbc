@@ -15,8 +15,9 @@
  */
 package org.springframework.samples.petclinic.visit;
 
-import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -74,6 +75,10 @@ public class Visit {
 	public Long getId() {
 		return id;
 	}
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 	public boolean isNew() {
 		return id == null;
